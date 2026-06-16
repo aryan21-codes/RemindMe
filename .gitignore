@@ -1,0 +1,28 @@
+# Node dependency folders
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Local database files
+*.db
+*.db-journal
+backend/remindme.db
+
+# Environments
+.env
+backend/.env
+frontend/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Production builds
+frontend/dist/
+dist/
+
+# IDE files and OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
