@@ -12,6 +12,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Strip /_/backend prefix from requests for Vercel deployment routing
+app.use((req, res, next) => {
+  if (req.url.startsWith('/_/backend')) {
+    req.url = req.url.substring('/_/backend'.length);
+  }
+  next();
+});
+
 // List of connected SSE clients
 let sseClients = [];
 
