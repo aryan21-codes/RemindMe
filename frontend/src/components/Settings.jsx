@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Send, AlertCircle, CheckCircle, HelpCircle, Loader2 } from 'lucide-react';
+import { API_BASE } from '../config';
+
 
 export default function Settings() {
   const [settings, setSettings] = useState({
@@ -23,7 +25,7 @@ export default function Settings() {
   const fetchSettings = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/settings');
+      const res = await fetch(`${API_BASE}/settings`);
       if (res.ok) {
         const data = await res.json();
         setSettings(data);
@@ -57,7 +59,7 @@ export default function Settings() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch(`${API_BASE}/settings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -83,7 +85,7 @@ export default function Settings() {
     }
     setTestingWhatsapp(true);
     try {
-      const res = await fetch('/api/test-whatsapp', {
+      const res = await fetch(`${API_BASE}/test-whatsapp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

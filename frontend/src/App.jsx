@@ -3,6 +3,8 @@ import { LayoutDashboard, Settings as SettingsIcon, Bell, BellOff, BellRing, Che
 import Dashboard from './components/Dashboard';
 import Settings from './components/Settings';
 import TaskForm from './components/TaskForm';
+import { API_BASE } from './config';
+
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -28,7 +30,7 @@ export default function App() {
     }
 
     // 3. Setup Server-Sent Events (SSE) for Browser Push Reminders
-    const sseUrl = `${window.location.origin}/api/events`;
+    const sseUrl = `${window.location.origin}${API_BASE}/events`;
     console.log(`[SSE] Connecting to: ${sseUrl}`);
     const eventSource = new EventSource(sseUrl);
 
@@ -63,7 +65,7 @@ export default function App() {
   const fetchTasks = async () => {
     setLoadingTasks(true);
     try {
-      const res = await fetch('/api/tasks');
+      const res = await fetch(`${API_BASE}/tasks`);
       if (res.ok) {
         const data = await res.json();
         setTasks(data);
@@ -97,7 +99,7 @@ export default function App() {
 
   const handleToggleComplete = async (task) => {
     try {
-      const res = await fetch(`/api/tasks/${task.id}`, {
+      const res = await fetch(`${API_BASE}/tasks/${task.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -117,7 +119,7 @@ export default function App() {
   const handleDeleteTask = async (id) => {
     if (!confirm('Are you sure you want to delete this task?')) return;
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`${API_BASE}/tasks/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {

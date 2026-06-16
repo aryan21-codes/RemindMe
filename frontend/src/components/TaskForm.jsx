@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, Bell, RefreshCw, Loader2 } from 'lucide-react';
+import { API_BASE } from '../config';
+
 
 export default function TaskForm({ task = null, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -106,7 +108,7 @@ export default function TaskForm({ task = null, onClose, onSuccess }) {
         : null
     };
 
-    const url = task ? `/api/tasks/${task.id}` : '/api/tasks';
+    const url = task ? `${API_BASE}/tasks/${task.id}` : `${API_BASE}/tasks`;
     const method = task ? 'PUT' : 'POST';
 
     try {
